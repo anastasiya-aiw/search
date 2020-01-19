@@ -82,8 +82,7 @@ class SearchController extends Controller
 
             $arr = [];
             foreach($result as $key=>$one){
-                //$content = strip_tags($one->getContentOriginal());
-		$content = preg_replace('#<[^>]+>#', ' ', $one[0]->getContentOriginal());
+				$content = preg_replace('#<[^>]+>#', ' ', $one[0]->getContentOriginal());
                 //$contentcrop = str_replace('ё','е',$content);// заменить ё на е
                 //$contentcrop = str_replace('й','и',$contentcrop);// заменить й на и
 
@@ -99,24 +98,10 @@ class SearchController extends Controller
 					}
 				}
 
-				//for catalogue
-				$substrs = explode('###',$str);
-				if(count($substrs)>1 ) $str = str_replace('###',' ',$str);
-
                 $one[0]->setContent($str);
                 $arr[$key] = $one[0]->getUrl();
             }
-/*
-            $tmp = [];
-            foreach($arr as $a => $v){
-                if ( in_array($v,$tmp) ){
-                    unset($result[$a]);
-                };
-                $tmp[] = $v;
-            }
-*/
         }
-        //if(count($stext) <= 3) $error = '';
 
         return $this->render('search/index.html.twig',[
             'text' => $text,
